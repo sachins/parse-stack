@@ -43,7 +43,9 @@ module Parse
   class Object
 
     def validate!
-      return self if valid?
+      super
+      self
+    rescue ActiveModel::ValidationError => e
       raise WebhookErrorResponse, errors.full_messages.first
     end
 
